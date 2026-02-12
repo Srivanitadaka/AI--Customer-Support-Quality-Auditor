@@ -12,7 +12,15 @@ app = Flask(__name__)
 API_URL = "https://router.huggingface.co/hf-inference/models/facebook/bart-large-cnn"
 headers = {
     "Authorization": f"Bearer {os.getenv('HF_TOKEN')}"
+
 }
+@app.after_request
+def after_request(response):
+    response.headers.add('Access-Control-Allow-Origin', '*')
+    response.headers.add('Access-Control-Allow-Headers', 'Content-Type,Authorization')
+    response.headers.add('Access-Control-Allow-Methods', 'GET,PUT,POST,DELETE,OPTIONS')
+    return response
+#@app.route("/analyze", methods=["POST"])
 
 @app.route("/summarize", methods=["POST"])
 def summarize():
