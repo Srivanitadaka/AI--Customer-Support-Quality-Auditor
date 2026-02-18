@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>AI Customer Support Quality Auditor</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body>
+
+<div class="main-container">
+
+    <div class="card">
+
+        <h1>AI Customer Support<br>Quality Auditor</h1>
+        <p class="subtitle">Upload transcript or chat file to audit support quality</p>
+
+        <!-- Upload Form -->
+        <form id="uploadForm" enctype="multipart/form-data">
+            <div class="upload-box">
+                <input type="file" name="file" id="fileInput" required>
+            </div>
+            <button class="analyze-btn" type="submit">Analyze Conversation</button>
+        </form>
+
+        <!-- Result Box -->
+
+<div class="result-box" id="resultBox" style="display:none;">
+    <h3>🧠 AI Analysis Summary</h3>
+    
+    <!-- ONLY Summary field -->
+    <div class="result-item">
+        <h4>Summary</h4>
+        <p id="summary"></p>
+    </div>
+</div>
+
+        
+
+<script>
+const form = document.getElementById("uploadForm");
+form.addEventListener("submit", async (e) => {
+    e.preventDefault();
+    
+    const file = document.getElementById("fileInput").files[0];
+    if (!file) return;
+    
+    const formData = new FormData();
+    formData.append("file", file);
+    
+    try {
+        const res = await fetch("/analyze_ajax", {
+            method: "POST",
+            body: formData
+        });
+        
+        const data = await res.json();
+        console.log("AI Summary:", data);
+        
+        document.getElementById("resultBox").style.display = "block";
+        
+        // ONLY populate summary
+        document.getElementById("summary").innerText = data.summary || "No summary generated";
+        
+    } catch (error) {
+        console.error("Error:", error);
+        alert("Analysis failed. Check console.");
+    }
+});
+</script>
+
+
+</body>
+</html>

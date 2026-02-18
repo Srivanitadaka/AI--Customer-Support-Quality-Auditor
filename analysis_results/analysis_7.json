@@ -1,0 +1,7 @@
+{
+    "summary": "The customer initiated the conversation with a simple greeting using repeated 'hello' without providing any context or specific query.",
+    "sentiment": "neutral",
+    "performance": "incomplete",
+    "issue": "no_issue_provided",
+    "resolution": "acknowledge_greeting_and_request_more_details"
+}

@@ -1,0 +1,7 @@
+{
+    "summary": "Customer Randall Thomas called Martha's Florist to place an order for one dozen long-stemmed red roses. The order was processed, and the total amount is $40. Delivery is expected within 24 hours to his shipping address at 6800 Gladys Avenue, Beaumont, Texas 77706.",
+    "sentiment": "positive",
+    "performance": "good",
+    "issue": "customer placed an order for flowers (red roses, one dozen with long stems)",
+    "resolution": "order confirmed; total $40; shipping to 6800 Gladys Avenue, Beaumont, TX 77706 within 24 hours; no additional issues or requests"
+}

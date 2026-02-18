@@ -1,0 +1,92 @@
+/* ---- Background ---- */
+body {
+    margin: 0;
+    padding: 0;
+    font-family: "Segoe UI", Arial, sans-serif;
+    background: radial-gradient(circle at top, #0f172a, #020617);
+    height: 100vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: white;
+}
+
+/* ---- Center Container ---- */
+.main-container {
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+/* ---- Card ---- */
+.card {
+    background: rgba(15, 23, 42, 0.75);
+    backdrop-filter: blur(18px);
+    border: 1px solid rgba(255,255,255,0.08);
+    padding: 40px;
+    border-radius: 20px;
+    width: 500px;
+    text-align: center;
+    box-shadow: 0 0 40px rgba(0,0,0,0.6);
+}
+
+/* ---- Title ---- */
+.card h1 {
+    font-size: 32px;
+    margin-bottom: 10px;
+}
+
+/* ---- Subtitle ---- */
+.subtitle {
+    color: #94a3b8;
+    margin-bottom: 30px;
+}
+
+/* ---- Upload ---- */
+.upload-box {
+    border: 2px dashed #334155;
+    padding: 25px;
+    border-radius: 12px;
+    margin-bottom: 20px;
+    background: rgba(2,6,23,0.6);
+}
+
+/* ---- Button ---- */
+.analyze-btn {
+    background: linear-gradient(135deg, #22c55e, #16a34a);
+    border: none;
+    padding: 12px 24px;
+    color: white;
+    font-size: 16px;
+    border-radius: 10px;
+    cursor: pointer;
+    transition: 0.3s;
+}
+
+.analyze-btn:hover {
+    transform: scale(1.05);
+}
+/* ---- Structured Result Items ---- */
+.result-item {
+    margin-bottom: 18px;
+}
+
+.result-item h4 {
+    margin: 0 0 6px 0;
+    font-size: 15px;
+    color: #38bdf8;
+    letter-spacing: 0.5px;
+}
+
+.result-item p {
+    margin: 0;
+    background: rgba(2,6,23,0.7);
+    border: 1px solid #334155;
+    padding: 12px;
+    border-radius: 8px;
+    color: #e2e8f0;
+    line-height: 1.5;
+    font-size: 14px;
+}
+

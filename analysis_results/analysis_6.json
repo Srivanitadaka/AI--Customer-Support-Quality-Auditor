@@ -1,0 +1,7 @@
+{
+    "summary": "The customer is confused and struggling to communicate clearly about a product or service, specifically mentioning 'youngest on your boat' and 'home price' in an unclear manner. They seem to be trying to say they saw something related to these topics and are reaching out for support.",
+    "sentiment": "frustrated",
+    "performance": "poor",
+    "issue": "customer is unable to articulate their concern clearly; possible miscommunication about product details or pricing (e.g., boat-related service, home price inquiry, or unrelated topics like 'youngest' mentioned ambiguously).",
+    "resolution": "The agent should ask for clarification in a polite and patient manner, guiding the customer to explain their specific concern or question about the 'boat' or 'home price' (or any other relevant topic) in a structured way. Example: 'I\u2019d love to help! Could you please clarify what you saw on our boat or what you\u2019re referring to regarding the home price? I\u2019m here to assist.'"
+}

@@ -1,0 +1,7 @@
+{
+    "summary": "The conversation consists of a single greeting with repeated 'hello' messages from the customer.",
+    "sentiment": "neutral",
+    "performance": "incomplete",
+    "issue": "customer did not provide a specific question or topic for support",
+    "resolution": "request clarification from the customer to better understand their needs or issue"
+}

@@ -1,0 +1,7 @@
+{
+    "summary": "The customer, Steven, is calling to assist with a quick and easy withdrawal process for a user named Miriam. The support agent initially tried to guide Miriam through the steps using AnyDesk on her Pixel phone, but encountered sharing limitations. Steven then switched to Miriam's Samsung phone, where they successfully connected via AnyDesk. The agent attempted to verify the withdrawal using a QR code scanner on Miriam's computer, but it was unavailable due to regional restrictions. Steven suggested checking the issue on his side and will follow up later.",
+    "sentiment": "Frustrated but patient",
+    "performance": "Moderate; initial technical hurdles due to device compatibility, but agent adapted and provided guidance. However, the QR code issue was unresolved, requiring further follow-up.",
+    "issue": "Miriam's withdrawal verification process failed due to the unavailability of a QR code scanner on her computer (likely restricted by region or VPN). The support agent could not access the necessary tool to proceed with the verification.",
+    "resolution": "The agent will double-check the issue on his side and follow up with Steven later to provide an alternative solution or further guidance."
+}
