@@ -1,0 +1,11 @@
+Agent: Travel support.
+Customer: Hi. You cancelled my flight 5 weeks ago and I still have not received my refund.
+Agent: Refunds take up to 12 weeks.
+Customer: Consumer law requires refunds within 7 days for cancellations you initiated. It has been 5 weeks.
+Agent: Our policy is 12 weeks.
+Customer: Your policy cannot override consumer law. I have been escalated to billing 3 times with no result.
+Agent: I do not have visibility on billing.
+Customer: This is 800 dollars you are withholding. I want written confirmation of the delay reason.
+Agent: I cannot provide that.
+Customer: I am filing a chargeback and a complaint with the aviation regulator right now.
+Agent: Okay.

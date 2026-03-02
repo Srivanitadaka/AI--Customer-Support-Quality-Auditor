@@ -1,0 +1,8 @@
+Agent: FoodRush support here. How can I help?
+Customer: I ordered a vegetarian meal and received a meat dish. I am vegetarian. This is really upsetting.
+Agent: I am sincerely sorry about that. Getting the wrong meal especially with a dietary requirement is completely unacceptable. Let me fix this right now.
+Customer: Can I get a replacement or a refund?
+Agent: Both. I am sending a replacement vegetarian order now and issuing a full refund. You should not pay for something you cannot eat. I am also adding a 10 dollar credit for the inconvenience.
+Customer: Both a refund and a replacement? That is very fair. Thank you.
+Agent: The replacement will arrive in about 35 minutes. Again I am really sorry for this mistake.
+Customer: Thank you for sorting it so quickly.

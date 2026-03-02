@@ -1,0 +1,5 @@
+{
+  "chat_id": "chat_006",
+  "file_name": "chat_06.txt",
+  "conversation": "Agent: QuickShip support. What is your issue?\nCustomer: My order is 4 days late. I needed it urgently and it still has not arrived.\nAgent: Order number?\nCustomer: QS 664219.\nAgent: It is in transit. Weather delays.\nCustomer: Can you give me an actual date?\nAgent: About 2 more days.\nCustomer: Can I get any compensation for the delay?\nAgent: Free shipping on your next order.\nCustomer: That is it for a week long delay?\nAgent: That is our policy.\nCustomer: Fine. Whatever."
+}

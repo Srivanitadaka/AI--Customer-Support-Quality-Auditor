@@ -1,0 +1,12 @@
+Agent: QuickShip support. What is your issue?
+Customer: My order is 4 days late. I needed it urgently and it still has not arrived.
+Agent: Order number?
+Customer: QS 664219.
+Agent: It is in transit. Weather delays.
+Customer: Can you give me an actual date?
+Agent: About 2 more days.
+Customer: Can I get any compensation for the delay?
+Agent: Free shipping on your next order.
+Customer: That is it for a week long delay?
+Agent: That is our policy.
+Customer: Fine. Whatever.

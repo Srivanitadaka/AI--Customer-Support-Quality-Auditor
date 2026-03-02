@@ -1,0 +1,12 @@
+Agent: City Bank support.
+Customer: Hi. I have an unexpected fee on my account this month.
+Agent: Account number?
+Customer: 774421983.
+Agent: Maintenance fee. Balance dropped below 500.
+Customer: I did not know about that. Can it be waived?
+Agent: Once. Done.
+Customer: How do I avoid it in future?
+Agent: Keep balance above 500 or set up direct deposit. Online banking, account settings.
+Customer: Okay. Thank you.
+Agent: Anything else?
+Customer: No.

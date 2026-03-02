@@ -1,0 +1,28 @@
+# python
+__pycache__/
+*.pyc
+*.pyo
+*.pyd
+
+# virtual env
+venv/
+GenAI/venv/
+*/venv/
+env/
+.env
+.env.* 
+
+# IDE / OS
+.vscode/
+*.log
+.DS_Store
+Thumbs.db
+
+# node / build
+node_modules/
+dist/
+build/
+
+# other
+*.sqlite3
+*.db

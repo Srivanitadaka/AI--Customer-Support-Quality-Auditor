@@ -1,0 +1,5 @@
+{
+  "chat_id": "chat_005",
+  "file_name": "chat_05.txt",
+  "conversation": "Agent: City Bank support.\nCustomer: Hi. I have an unexpected fee on my account this month.\nAgent: Account number?\nCustomer: 774421983.\nAgent: Maintenance fee. Balance dropped below 500.\nCustomer: I did not know about that. Can it be waived?\nAgent: Once. Done.\nCustomer: How do I avoid it in future?\nAgent: Keep balance above 500 or set up direct deposit. Online banking, account settings.\nCustomer: Okay. Thank you.\nAgent: Anything else?\nCustomer: No."
+}

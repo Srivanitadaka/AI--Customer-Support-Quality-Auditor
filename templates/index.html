@@ -1,0 +1,590 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>CallAudit Pro — Support Quality Dashboard</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=DM+Mono:wght@400;500&family=Syne:wght@700;800&family=DM+Sans:wght@300;400;500;600&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body>
+
+<!-- Background grid -->
+<div class="bg-grid"></div>
+
+<div class="shell">
+
+  <!-- ── HEADER ─────────────────────────────────── -->
+  <header class="topbar">
+    <div class="brand">
+      <span class="brand-dot"></span>
+      <span class="brand-name">CallAudit <em>Pro</em></span>
+    </div>
+    <div class="topbar-right">
+      <span class="model-tag">llama-3.3-70b · Groq</span>
+      <span class="status-dot" id="statusDot"></span>
+    </div>
+  </header>
+
+  <main class="main">
+
+    <!-- ── UPLOAD SECTION ─────────────────────────── -->
+    <section class="upload-section" id="uploadSection">
+      <div class="upload-label">Customer Support Call Auditing System</div>
+      <div class="upload-card" id="dropZone">
+        <div class="upload-inner">
+          <div class="upload-glyph">⬆</div>
+          <div class="upload-text">
+            <strong>Upload Call Recording or Transcript</strong>
+            <span>Drag & drop or <label for="fileInput" class="pick-link">choose file</label></span>
+          </div>
+          <input type="file" id="fileInput" name="file"
+                 accept=".txt,.json,.mp3,.wav,.m4a,.mp4,.flac" hidden>
+          <div class="upload-formats">mp3 · m4a · wav · txt · json</div>
+        </div>
+        <div id="fileChosen" class="file-chosen" style="display:none;"></div>
+      </div>
+
+      <form id="uploadForm" enctype="multipart/form-data">
+        <button class="btn-analyze" type="submit" id="analyzeBtn">
+          <span id="btnText">Analyze &amp; Score</span>
+          <span id="btnSpinner" class="spinner" style="display:none;"></span>
+        </button>
+      </form>
+    </section>
+
+    <!-- ── RESULTS (hidden until analysis) ────────── -->
+    <div id="results" style="display:none;">
+
+      <!-- 1. Overall Summary Cards -->
+      <section class="overview-strip">
+        <div class="ov-card" id="ovScore">
+          <div class="ov-label">Overall Score</div>
+          <div class="ov-big" id="ovScoreVal">—</div>
+          <div class="ov-bar-wrap"><div class="ov-bar" id="ovBar"></div></div>
+        </div>
+        <div class="ov-card" id="ovSat">
+          <div class="ov-label">Customer Satisfaction</div>
+          <div class="ov-big" id="ovSatVal">—</div>
+          <div class="ov-stars" id="ovStars"></div>
+        </div>
+        <div class="ov-card" id="ovOutcome">
+          <div class="ov-label">Call Outcome</div>
+          <div class="ov-outcome" id="ovOutcomeVal">—</div>
+          <div class="ov-grade" id="ovGrade">—</div>
+        </div>
+      </section>
+
+      <!-- 2. Middle panels -->
+      <section class="panels">
+
+        <!-- LEFT: Satisfaction -->
+        <div class="panel">
+          <div class="panel-head">Customer Satisfaction Metrics</div>
+          <div class="metric-row">
+            <span class="metric-label">Sentiment</span>
+            <span class="metric-val" id="mSentiment">—</span>
+          </div>
+          <div class="metric-row">
+            <span class="metric-label">Sentiment Score</span>
+            <div class="metric-bar-wrap">
+              <div class="metric-bar" id="mSentimentBar"></div>
+            </div>
+            <span class="metric-num" id="mSentimentScore">—</span>
+          </div>
+          <div class="metric-row">
+            <span class="metric-label">Emotional Stability</span>
+            <span class="metric-val" id="mStability">—</span>
+          </div>
+          <div class="metric-row">
+            <span class="metric-label">Customer Frustration</span>
+            <span class="metric-val" id="mFrustration">—</span>
+          </div>
+          <div class="metric-row">
+            <span class="metric-label">Frustration Reason</span>
+            <span class="metric-val small" id="mFrustReason">—</span>
+          </div>
+          <div class="metric-row">
+            <span class="metric-label">Satisfaction Rating</span>
+            <span class="metric-val accent" id="mRating">— / 5</span>
+          </div>
+        </div>
+
+        <!-- RIGHT: Agent Quality -->
+        <div class="panel">
+          <div class="panel-head">Agent Quality Assessment</div>
+
+          <div class="agent-row">
+            <span class="agent-label">Language Clarity</span>
+            <div class="agent-bar-wrap"><div class="agent-bar" id="aLang"></div></div>
+            <span class="agent-num" id="aLangNum">—/20</span>
+          </div>
+          <div class="agent-row">
+            <span class="agent-label">Professionalism</span>
+            <div class="agent-bar-wrap"><div class="agent-bar" id="aProf"></div></div>
+            <span class="agent-num" id="aProfNum">—/20</span>
+          </div>
+          <div class="agent-row">
+            <span class="agent-label">Time Efficiency</span>
+            <div class="agent-bar-wrap"><div class="agent-bar" id="aTime"></div></div>
+            <span class="agent-num" id="aTimeNum">—/20</span>
+          </div>
+          <div class="agent-row">
+            <span class="agent-label">Response Efficiency</span>
+            <div class="agent-bar-wrap"><div class="agent-bar" id="aResp"></div></div>
+            <span class="agent-num" id="aRespNum">—/20</span>
+          </div>
+          <div class="agent-row">
+            <span class="agent-label">Empathy Score</span>
+            <div class="agent-bar-wrap"><div class="agent-bar" id="aEmp"></div></div>
+            <span class="agent-num" id="aEmpNum">—/10</span>
+          </div>
+
+          <div class="agent-pills">
+            <div class="pill" id="pillBias">— Bias</div>
+            <div class="pill" id="pillCalm">— Customer Calmed</div>
+          </div>
+
+          <div id="empathyPhrases" class="empathy-phrases" style="display:none;">
+            <div class="ep-label">Empathy phrases used</div>
+            <div id="epList" class="ep-list"></div>
+          </div>
+        </div>
+
+      </section>
+
+      <!-- 3. Dimension Scores -->
+      <section class="dim-section">
+        <div class="section-title">Dimension Scores</div>
+        <div class="dim-grid" id="dimGrid"></div>
+      </section>
+
+      <!-- 4. F1 / Model Metrics -->
+      <section class="panels" style="margin-top:0">
+        <div class="panel">
+          <div class="panel-head">Classification Confidence Metrics</div>
+          <div class="f1-grid" id="f1Grid"></div>
+          <div class="f1-note" id="f1Note"></div>
+        </div>
+
+        <!-- Summary -->
+        <div class="panel">
+          <div class="panel-head">AI Summary</div>
+          <div class="summary-text" id="summaryText">—</div>
+          <div class="issue-row">
+            <span class="issue-lbl">Issue Detected</span>
+            <span class="issue-val" id="issueVal">—</span>
+          </div>
+        </div>
+      </section>
+
+      <!-- 5. Violations + Improvements -->
+      <section class="panels" style="margin-top:0">
+        <div class="panel" id="violPanel">
+          <div class="panel-head violations-head">
+            ⚠ Violations <span class="vbadge" id="vbadge"></span>
+          </div>
+          <div id="violList"><div class="empty-state">No violations detected ✓</div></div>
+        </div>
+        <div class="panel">
+          <div class="panel-head">💡 Improvements</div>
+          <div id="improveList"><div class="empty-state">No improvements needed ✓</div></div>
+        </div>
+      </section>
+
+      <!-- 6. Transcript Viewer -->
+      <section class="transcript-section" id="transcriptSection" style="display:none;">
+        <div class="section-title">Transcript Viewer</div>
+        <div class="transcript-box" id="transcriptBox"></div>
+      </section>
+
+      <!-- 7. Highlights -->
+      <section id="highlightSection" style="display:none; margin-bottom:24px;">
+        <div class="section-title">✅ What Went Well</div>
+        <div class="highlights-box" id="highlightsList"></div>
+      </section>
+
+    </div>
+
+    <!-- ── BATCH TABLE ─────────────────────────────── -->
+    <section class="batch-section">
+      <div class="section-title">
+        All Scored Conversations
+        <span class="refresh-btn" onclick="loadResults()" title="Refresh">↻</span>
+      </div>
+      <div id="batchLoading" class="batch-msg">Loading results...</div>
+      <div id="batchEmpty"   class="batch-msg" style="display:none;">
+        No results yet — upload a file above or run <code>python batch_scorer.py</code>
+      </div>
+      <div id="batchTable"   style="display:none;">
+        <div class="stats-strip" id="statsStrip"></div>
+        <div class="tbl-wrap">
+          <table class="rtable">
+            <thead><tr>
+              <th>File</th><th>Grade</th><th>Score</th>
+              <th>Satisfaction</th><th>Outcome</th><th>Violations</th><th>Type</th>
+            </tr></thead>
+            <tbody id="tblBody"></tbody>
+          </table>
+        </div>
+        <div id="rowDetail" class="row-detail" style="display:none;"></div>
+      </div>
+    </section>
+
+  </main>
+</div>
+
+<script>
+// ── Colour helpers ─────────────────────────────────────────────────────
+const GRADE_C = {A:"#22c55e",B:"#38bdf8",C:"#f59e0b",D:"#fb923c",F:"#f87171"};
+const SENT_C  = {positive:"#22c55e",neutral:"#94a3b8",negative:"#f87171",mixed:"#f59e0b",unknown:"#64748b"};
+
+function scoreColor(v, max=100) {
+  const pct = v/max;
+  if (pct >= 0.75) return "#22c55e";
+  if (pct >= 0.55) return "#f59e0b";
+  return "#f87171";
+}
+function frustColor(f) {
+  return {None:"#22c55e",Low:"#86efac",Medium:"#f59e0b",High:"#fb923c","Very High":"#f87171"}[f] || "#94a3b8";
+}
+function stabilityColor(s) {
+  return {Excellent:"#22c55e",Good:"#86efac",Fair:"#f59e0b",Poor:"#f87171"}[s] || "#94a3b8";
+}
+function cap(s){ return s ? s.charAt(0).toUpperCase()+s.slice(1) : ""; }
+
+// ── File picker ────────────────────────────────────────────────────────
+const fileInput = document.getElementById("fileInput");
+fileInput.addEventListener("change", showFile);
+function showFile(){
+  const f = fileInput.files[0]; if(!f) return;
+  const el = document.getElementById("fileChosen");
+  el.textContent = "📄 "+f.name; el.style.display="block";
+}
+
+// Drag & drop
+const dz = document.getElementById("dropZone");
+dz.addEventListener("dragover",  e => { e.preventDefault(); dz.classList.add("drag"); });
+dz.addEventListener("dragleave", () => dz.classList.remove("drag"));
+dz.addEventListener("drop", e => {
+  e.preventDefault(); dz.classList.remove("drag");
+  const f = e.dataTransfer.files[0]; if(!f) return;
+  const dt = new DataTransfer(); dt.items.add(f);
+  fileInput.files = dt.files; showFile();
+});
+
+// ── Submit ─────────────────────────────────────────────────────────────
+document.getElementById("uploadForm").addEventListener("submit", async e => {
+  e.preventDefault();
+  const f = fileInput.files[0]; if(!f) return;
+  setBusy(true);
+  document.getElementById("results").style.display = "none";
+  try {
+    const fd = new FormData(); fd.append("file", f);
+    const res  = await fetch("/analyze_ajax", {method:"POST", body:fd});
+    const data = await res.json();
+    renderResults(data, f.name);
+    setTimeout(loadResults, 1500);
+  } catch(err){ console.error(err); alert("Analysis failed."); }
+  finally{ setBusy(false); }
+});
+
+function setBusy(on){
+  document.getElementById("btnText").style.display    = on?"none":"inline";
+  document.getElementById("btnSpinner").style.display = on?"inline-block":"none";
+  document.getElementById("analyzeBtn").disabled      = on;
+  document.getElementById("statusDot").className      = on?"status-dot busy":"status-dot";
+}
+
+// ── Render full dashboard ──────────────────────────────────────────────
+let lastTranscript = "";
+
+function renderResults(d, filename="") {
+  document.getElementById("results").style.display = "block";
+
+  const grade   = d.grade || "F";
+  const overall = d.overall_score || 0;
+  const gc      = GRADE_C[grade] || "#64748b";
+  const sat     = d.satisfaction   || {};
+  const aq      = d.agent_quality  || {};
+  const mm      = d.model_metrics  || {};
+  const dims    = d.dimension_scores || d.scores || {};
+
+  // ── 1. Overview cards ──
+  const ovScore = document.getElementById("ovScoreVal");
+  ovScore.textContent = overall + " / 100";
+  ovScore.style.color = scoreColor(overall);
+
+  const ovBar = document.getElementById("ovBar");
+  ovBar.style.width      = overall+"%";
+  ovBar.style.background = scoreColor(overall);
+
+  const satRating = sat.rating || 0;
+  document.getElementById("ovSatVal").textContent = satRating.toFixed(1) + " / 5";
+  document.getElementById("ovSatVal").style.color = scoreColor(satRating, 5);
+  renderStars(satRating);
+
+  const outcomeEl = document.getElementById("ovOutcomeVal");
+  const outcome   = d.call_outcome || (d.was_resolved ? "Resolved" : "Unresolved");
+  outcomeEl.textContent  = outcome;
+  outcomeEl.className    = "ov-outcome " + (d.was_resolved ? "resolved" : "unresolved");
+
+  const gradeEl = document.getElementById("ovGrade");
+  gradeEl.textContent       = "Grade " + grade;
+  gradeEl.style.background  = gc+"22";
+  gradeEl.style.color       = gc;
+  gradeEl.style.borderColor = gc+"44";
+
+  // ── 2. Satisfaction panel ──
+  const sentKey = (sat.sentiment||"neutral").toLowerCase();
+  const sentEl  = document.getElementById("mSentiment");
+  sentEl.textContent = sat.sentiment || "—";
+  sentEl.style.color = SENT_C[sentKey] || "#94a3b8";
+
+  const ss = sat.sentiment_score || 0;
+  document.getElementById("mSentimentBar").style.width      = (ss*100)+"%";
+  document.getElementById("mSentimentBar").style.background = SENT_C[sentKey]||"#94a3b8";
+  document.getElementById("mSentimentScore").textContent    = ss.toFixed(2);
+
+  const stabEl = document.getElementById("mStability");
+  stabEl.textContent = sat.emotional_stability || "—";
+  stabEl.style.color = stabilityColor(sat.emotional_stability);
+
+  const frustEl = document.getElementById("mFrustration");
+  frustEl.textContent = sat.customer_frustration || "—";
+  frustEl.style.color = frustColor(sat.customer_frustration);
+
+  document.getElementById("mFrustReason").textContent = sat.frustration_reason || "None";
+  document.getElementById("mRating").textContent = satRating.toFixed(1) + " / 5";
+
+  // ── 3. Agent quality panel ──
+  setAgentBar("aLang", "aLangNum", aq.language_clarity,    20);
+  setAgentBar("aProf", "aProfNum", aq.professionalism,      20);
+  setAgentBar("aTime", "aTimeNum", aq.time_efficiency,      20);
+  setAgentBar("aResp", "aRespNum", aq.response_efficiency,  20);
+  setAgentBar("aEmp",  "aEmpNum",  aq.empathy_score,        10, true);
+
+  const pillBias = document.getElementById("pillBias");
+  pillBias.textContent  = aq.bias_detected ? "⚠ Bias Detected" : "✔ No Bias";
+  pillBias.className    = "pill " + (aq.bias_detected ? "pill-bad" : "pill-good");
+
+  const pillCalm = document.getElementById("pillCalm");
+  pillCalm.textContent  = aq.calmed_customer ? "✔ Customer Calmed" : "✘ Not Calmed";
+  pillCalm.className    = "pill " + (aq.calmed_customer ? "pill-good" : "pill-warn");
+
+  const phrases = aq.empathy_phrases_used || [];
+  if (phrases.length > 0) {
+    document.getElementById("empathyPhrases").style.display = "block";
+    document.getElementById("epList").innerHTML = phrases.map(p => `<span class="ep-chip">"${p}"</span>`).join("");
+  }
+
+  // ── 4. Dimension scores ──
+  const DIM_META = {
+    empathy:                  {label:"Empathy",         icon:"💛"},
+    professionalism:          {label:"Professionalism", icon:"👔"},
+    compliance:               {label:"Compliance",      icon:"🛡"},
+    resolution_effectiveness: {label:"Resolution",      icon:"✅"},
+    communication_clarity:    {label:"Clarity",         icon:"💬"}
+  };
+  const grid = document.getElementById("dimGrid");
+  grid.innerHTML = "";
+  Object.entries(DIM_META).forEach(([key, meta]) => {
+    const val = dims[key] ?? 0;
+    const col = scoreColor(val, 10);
+    grid.innerHTML += `
+      <div class="dim-card">
+        <div class="dim-icon">${meta.icon}</div>
+        <div class="dim-label">${meta.label}</div>
+        <div class="dim-val" style="color:${col}">${val}<span>/10</span></div>
+        <div class="dim-track"><div class="dim-bar" style="width:${val*10}%;background:${col}"></div></div>
+      </div>`;
+  });
+
+  // ── 5. Model metrics ──
+  const f1Items = [
+    {label:"Precision",   val: mm.precision,  fmt: v => v.toFixed(2)},
+    {label:"Recall",      val: mm.recall,     fmt: v => v.toFixed(2)},
+    {label:"F1 Score",    val: mm.f1_score,   fmt: v => v.toFixed(2)},
+    {label:"Confidence",  val: mm.confidence, fmt: v => (v*100).toFixed(0)+"%"},
+  ];
+  document.getElementById("f1Grid").innerHTML = f1Items.map(item => {
+    const v   = item.val || 0;
+    const col = scoreColor(v, 1);
+    return `<div class="f1-card">
+      <div class="f1-label">${item.label}</div>
+      <div class="f1-val" style="color:${col}">${item.fmt(v)}</div>
+      <div class="f1-track"><div class="f1-bar" style="width:${v*100}%;background:${col}"></div></div>
+    </div>`;
+  }).join("");
+  document.getElementById("f1Note").textContent = mm.notes || "";
+
+  // ── 6. Summary + issue ──
+  document.getElementById("summaryText").textContent = d.summary || "—";
+  document.getElementById("issueVal").textContent    = d.issue_detected || "—";
+
+  // ── 7. Violations ──
+  const viols = d.violations || [];
+  const vbadge = document.getElementById("vbadge");
+  vbadge.textContent = viols.length;
+  vbadge.style.display = viols.length > 0 ? "inline" : "none";
+
+  document.getElementById("violList").innerHTML = viols.length > 0
+    ? viols.map(v => `
+        <div class="viol-card sev-${v.severity||'medium'}">
+          <div class="viol-top">
+            <span class="viol-type">${fmtKey(v.type)}</span>
+            <span class="sev-badge ${v.severity}">${(v.severity||"").toUpperCase()}</span>
+          </div>
+          ${v.quote ? `<div class="viol-quote">"${v.quote}"</div>` : ""}
+          <div class="viol-explain">${v.explanation||""}</div>
+        </div>`).join("")
+    : `<div class="empty-state">No violations detected ✓</div>`;
+
+  // ── 8. Improvements ──
+  const imps = d.improvements || [];
+  document.getElementById("improveList").innerHTML = imps.length > 0
+    ? imps.map(i => `
+        <div class="imp-card">
+          <div class="imp-area">${fmtKey(i.area)}</div>
+          <div class="imp-sug">${i.suggestion||""}</div>
+          ${i.example ? `<div class="imp-ex">💬 <em>${i.example}</em></div>` : ""}
+        </div>`).join("")
+    : `<div class="empty-state">No improvements suggested ✓</div>`;
+
+  // ── 9. Highlights ──
+  const highs = d.highlights || [];
+  if (highs.length > 0) {
+    document.getElementById("highlightSection").style.display = "block";
+    document.getElementById("highlightsList").innerHTML =
+      highs.map(h => `<div class="h-item">✅ ${h}</div>`).join("");
+  }
+
+  // ── 10. Transcript ──
+  if (lastTranscript) showTranscript(lastTranscript);
+
+  document.getElementById("results").scrollIntoView({behavior:"smooth", block:"start"});
+}
+
+function setAgentBar(barId, numId, val, max, isFloat=false) {
+  const v   = val ?? 0;
+  const col = scoreColor(v, max);
+  document.getElementById(barId).style.width      = (v/max*100)+"%";
+  document.getElementById(barId).style.background = col;
+  document.getElementById(numId).textContent       = (isFloat ? v.toFixed(1) : v) + "/" + max;
+  document.getElementById(numId).style.color       = col;
+}
+
+function renderStars(rating) {
+  const full = Math.floor(rating);
+  const half = rating - full >= 0.5;
+  let html = "";
+  for (let i=1; i<=5; i++) {
+    if (i <= full)      html += '<span class="star full">★</span>';
+    else if (i===full+1 && half) html += '<span class="star half">★</span>';
+    else                html += '<span class="star empty">☆</span>';
+  }
+  document.getElementById("ovStars").innerHTML = html;
+}
+
+function showTranscript(text) {
+  const lines  = text.split("\n").filter(l => l.trim());
+  const box    = document.getElementById("transcriptBox");
+  box.innerHTML = lines.map(line => {
+    const isAgent    = /^agent:/i.test(line);
+    const isCustomer = /^customer:/i.test(line);
+    if (isAgent)    return `<div class="tline agent"><span class="trole">Agent</span>${line.replace(/^agent:\s*/i,"")}</div>`;
+    if (isCustomer) return `<div class="tline customer"><span class="trole">Customer</span>${line.replace(/^customer:\s*/i,"")}</div>`;
+    return `<div class="tline">${line}</div>`;
+  }).join("");
+  document.getElementById("transcriptSection").style.display = "block";
+}
+
+// ── Batch table ────────────────────────────────────────────────────────
+let allResults = [];
+
+async function loadResults() {
+  document.getElementById("batchLoading").style.display = "block";
+  document.getElementById("batchTable").style.display   = "none";
+  document.getElementById("batchEmpty").style.display   = "none";
+  try {
+    const data = await (await fetch("/results")).json();
+    allResults = data;
+    if (!data.length) {
+      document.getElementById("batchLoading").style.display = "none";
+      document.getElementById("batchEmpty").style.display   = "block";
+      return;
+    }
+    renderStats(data);
+    renderTable(data);
+    document.getElementById("batchLoading").style.display = "none";
+    document.getElementById("batchTable").style.display   = "block";
+  } catch(e) {
+    document.getElementById("batchLoading").textContent = "Failed to load.";
+  }
+}
+
+function renderStats(data) {
+  const avg  = (data.reduce((s,r)=>s+r.overall_score,0)/data.length).toFixed(1);
+  const pass = data.filter(r=>r.overall_score>=60).length;
+  const viol = data.reduce((s,r)=>s+r.violations,0);
+  const res  = data.filter(r=>r.was_resolved).length;
+  document.getElementById("statsStrip").innerHTML = [
+    {label:"Total",          val:data.length,    color:"#e2e8f0"},
+    {label:"Avg Score",      val:avg+"/100",      color:"#38bdf8"},
+    {label:"Passing ≥60",   val:pass,            color:"#22c55e"},
+    {label:"Violations",     val:viol,            color:"#f87171"},
+    {label:"Resolved",       val:res,             color:"#34d399"},
+  ].map(s=>`<div class="stat-item"><div class="stat-val" style="color:${s.color}">${s.val}</div><div class="stat-lbl">${s.label}</div></div>`).join("");
+}
+
+function renderTable(data) {
+  document.getElementById("tblBody").innerHTML = data.map((r,i) => {
+    const gc   = GRADE_C[r.grade] || "#64748b";
+    const name = r.filename.length>32 ? r.filename.slice(0,30)+"…" : r.filename;
+    const type = r._type==="live_upload" ? "🔴 Live" : "📦 Batch";
+    const sat  = (r.satisfaction_rating || r.satisfaction?.rating || 0).toFixed(1);
+    return `<tr class="trow" onclick="expandRow(${i})" title="Click to expand">
+      <td class="td-name" title="${r.filename}">${name}</td>
+      <td><span class="gbadge" style="color:${gc};border-color:${gc}44;background:${gc}18">${r.grade}</span></td>
+      <td>
+        <div class="si"><span class="sn" style="color:${scoreColor(r.overall_score)}">${r.overall_score}</span>
+        <div class="mb"><div class="mbb" style="width:${r.overall_score}%;background:${scoreColor(r.overall_score)}"></div></div></div>
+      </td>
+      <td><span style="color:${SENT_C[(r.sentiment||'').toLowerCase()]||'#94a3b8'}">${cap(r.sentiment||"—")}</span></td>
+      <td><span class="${r.was_resolved?'yes':'no'}">${r.was_resolved?"✔ Resolved":"✘ Unresolved"}</span></td>
+      <td>${r.violations>0?`<span class="vbadge2">${r.violations}</span>`:'<span class="noviol">0</span>'}</td>
+      <td><span class="type-tag">${type}</span></td>
+    </tr>`;
+  }).join("");
+}
+
+function expandRow(i) {
+  const r      = allResults[i];
+  const panel  = document.getElementById("rowDetail");
+  const gc     = GRADE_C[r.grade]||"#64748b";
+  const dims   = r.scores || {};
+  const DIM_LABELS = {empathy:"Empathy",professionalism:"Professionalism",compliance:"Compliance",resolution_effectiveness:"Resolution",communication_clarity:"Clarity"};
+  let dimHtml  = Object.entries(DIM_LABELS).map(([k,l])=>{
+    const v = dims[k]??0, c=scoreColor(v,10);
+    return `<div class="rd-dim"><span class="rd-dim-l">${l}</span><div class="rd-bar-w"><div class="rd-bar" style="width:${v*10}%;background:${c}"></div></div><span class="rd-dim-v" style="color:${c}">${v}/10</span></div>`;
+  }).join("");
+  panel.innerHTML = `
+    <div class="rd-head">
+      <span style="color:${gc};font-weight:800">${r.grade} · ${r.overall_score}/100</span>
+      &nbsp; ${r.filename}
+      <span class="rd-close" onclick="closeRow()">✕</span>
+    </div>
+    <div class="rd-summary">${r.summary||"—"}</div>
+    <div class="rd-issue"><span class="issue-lbl">Issue</span>${r.issue_detected||"—"}</div>
+    ${dimHtml}`;
+  panel.style.display = "block";
+  panel.scrollIntoView({behavior:"smooth",block:"nearest"});
+}
+function closeRow(){ document.getElementById("rowDetail").style.display="none"; }
+function fmtKey(k){ return (k||"").replace(/_/g," ").replace(/\b\w/g,c=>c.toUpperCase()); }
+
+loadResults();
+</script>
+</body>
+</html>

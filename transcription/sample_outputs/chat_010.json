@@ -1,0 +1,5 @@
+{
+  "chat_id": "chat_010",
+  "file_name": "chat_10.txt",
+  "conversation": "Agent: Travel support.\nCustomer: Hi. You cancelled my flight 5 weeks ago and I still have not received my refund.\nAgent: Refunds take up to 12 weeks.\nCustomer: Consumer law requires refunds within 7 days for cancellations you initiated. It has been 5 weeks.\nAgent: Our policy is 12 weeks.\nCustomer: Your policy cannot override consumer law. I have been escalated to billing 3 times with no result.\nAgent: I do not have visibility on billing.\nCustomer: This is 800 dollars you are withholding. I want written confirmation of the delay reason.\nAgent: I cannot provide that.\nCustomer: I am filing a chargeback and a complaint with the aviation regulator right now.\nAgent: Okay."
+}

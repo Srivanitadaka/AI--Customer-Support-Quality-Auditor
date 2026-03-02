@@ -1,0 +1,11 @@
+Agent: Support chat. What is the problem?
+Customer: My internet cuts out every few hours for 2 weeks. I work from home. This is affecting my job badly.
+Agent: Have you restarted the router?
+Customer: Yes many times. I have also called twice and nothing has been fixed.
+Agent: Try restarting it again.
+Customer: I just told you I have restarted it many times. My neighbour on the same provider has the same problem. It is clearly your network.
+Agent: I can raise a ticket. Manager response in 48 hours.
+Customer: 48 hours is unacceptable for a 2 week ongoing issue. I need this fixed now.
+Agent: That is our response time.
+Customer: This is terrible service. I am looking at other providers.
+Agent: That is your choice.

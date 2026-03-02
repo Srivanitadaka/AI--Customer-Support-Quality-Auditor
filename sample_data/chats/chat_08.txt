@@ -1,0 +1,9 @@
+Agent: Rewards support.
+Customer: Hi. I spent 500 dollars last month and my loyalty points were never added. It has been 35 days.
+Agent: Points take 30 days. There are sometimes delays.
+Customer: It has been 35 days. That is not a useful answer. Can you check?
+Agent: Need receipts to investigate.
+Customer: It was all online. My order history is right there in my account.
+Agent: Different system. I can raise a ticket. 10 to 15 business days.
+Customer: 3 weeks to fix something automatic? I have spent hundreds here. This is why I am thinking of switching.
+Agent: That is your decision.

@@ -1,0 +1,18 @@
+type: object
+properties:
+  conversation_summary:
+    type: string
+  customer_sentiment:
+    type: string
+  agent_performance:
+    type: string
+  issue_category:
+    type: string
+  resolution_status:
+    type: string
+required:
+  - conversation_summary
+  - customer_sentiment
+  - agent_performance
+  - issue_category
+  - resolution_status

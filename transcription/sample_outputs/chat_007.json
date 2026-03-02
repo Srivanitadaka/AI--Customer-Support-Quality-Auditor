@@ -1,0 +1,5 @@
+{
+  "chat_id": "chat_007",
+  "file_name": "chat_07.txt",
+  "conversation": "Agent: Support chat. What is the problem?\nCustomer: My internet cuts out every few hours for 2 weeks. I work from home. This is affecting my job badly.\nAgent: Have you restarted the router?\nCustomer: Yes many times. I have also called twice and nothing has been fixed.\nAgent: Try restarting it again.\nCustomer: I just told you I have restarted it many times. My neighbour on the same provider has the same problem. It is clearly your network.\nAgent: I can raise a ticket. Manager response in 48 hours.\nCustomer: 48 hours is unacceptable for a 2 week ongoing issue. I need this fixed now.\nAgent: That is our response time.\nCustomer: This is terrible service. I am looking at other providers.\nAgent: That is your choice."
+}

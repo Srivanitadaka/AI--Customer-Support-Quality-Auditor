@@ -1,0 +1,11 @@
+Agent: Tech support.
+Customer: Hi. I lost 3 months of client data after your update last night. This is catastrophic for my business.
+Agent: Maintenance was scheduled and announced.
+Customer: I received no announcement. And an update should not delete user data.
+Agent: You probably deleted it yourself.
+Customer: I did not. This is 3 months of client records. Can you restore from backup?
+Agent: Backups are for system data not user files.
+Customer: I need your supervisor and your legal contact immediately.
+Agent: I do not have that information.
+Customer: You work here and do not have your own company legal contact?
+Agent: Not at my level. Anything else?

@@ -1,0 +1,5 @@
+{
+  "chat_id": "chat_009",
+  "file_name": "chat_09.txt",
+  "conversation": "Agent: Tech support.\nCustomer: Hi. I lost 3 months of client data after your update last night. This is catastrophic for my business.\nAgent: Maintenance was scheduled and announced.\nCustomer: I received no announcement. And an update should not delete user data.\nAgent: You probably deleted it yourself.\nCustomer: I did not. This is 3 months of client records. Can you restore from backup?\nAgent: Backups are for system data not user files.\nCustomer: I need your supervisor and your legal contact immediately.\nAgent: I do not have that information.\nCustomer: You work here and do not have your own company legal contact?\nAgent: Not at my level. Anything else?"
+}

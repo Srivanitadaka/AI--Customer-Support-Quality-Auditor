@@ -1,0 +1,10 @@
+Agent: Hi, StyleHub support here. I am Nina. How can I help?
+Customer: Hi Nina. I bought a jacket 3 weeks ago and the zipper broke after wearing it twice.
+Agent: I am sorry about that. A broken zipper that quickly is a clear manufacturing defect. What is your order number?
+Customer: SH 88742.
+Agent: Found it. Since it is a defect we will cover return shipping completely. I can do a full refund or send the same jacket again. Which do you prefer?
+Customer: Same jacket please if it is in stock.
+Agent: It is in stock. Prepaid return label is going to your email now. Once we receive the faulty jacket your replacement ships within 24 hours.
+Customer: That is quicker than I expected. Thank you Nina.
+Agent: Of course. Sorry about the defect. Is there anything else?
+Customer: No, that is everything. Thanks.

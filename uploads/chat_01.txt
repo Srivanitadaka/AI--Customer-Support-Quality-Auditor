@@ -1,0 +1,9 @@
+Agent: Thank you for contacting MediCare Billing chat. I am Sophie. How can I help you today?
+Customer: Hi Sophie. I received a bill for 800 dollars but my insurance was supposed to cover everything. I am really worried. I am on a fixed income.
+Agent: I am so sorry this has caused you worry. Please do not panic at all. Let me look at your account right now.
+Customer: I have not been sleeping because of this.
+Agent: I completely understand. I can see exactly what happened. Our billing team used the wrong procedure code. That is entirely our mistake, not yours. You owe absolutely nothing.
+Customer: Really? So the 800 dollars just goes away?
+Agent: Yes completely. I am resubmitting the correct claim right now and placing a hold on this bill so you will not receive any further notices or calls. I am also sending you a written confirmation to your email this moment so you have it in writing.
+Customer: I cannot believe it was just a mistake on your end. Thank you so much Sophie.
+Agent: Please do not worry at all. You will see the zero balance confirmation in your inbox shortly. Have a peaceful evening.

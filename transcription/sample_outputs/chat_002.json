@@ -1,0 +1,5 @@
+{
+  "chat_id": "chat_002",
+  "file_name": "chat_02.txt",
+  "conversation": "Agent: Hi! DataFlow support here. I am Marcus. What can I help you with?\nCustomer: Marcus, our whole team is locked out of the platform. We have a client presentation in 90 minutes and all our data is inside.\nAgent: I can see the issue right now. There was a certificate update this morning that affected authentication. Our engineers are already on it and the fix ETA is 20 minutes. I am escalating your case to critical priority immediately.\nCustomer: 20 minutes is okay but what if it runs over? My career is on the line here.\nAgent: I completely understand. As a backup I am generating a read-only export of your key dashboards right now and sending it to your email. You will have something to present regardless of timing.\nCustomer: You are sending the export right now? That is above and beyond.\nAgent: Access restored. Just confirmed on our end. Please try logging in now.\nCustomer: Yes! It is working! You genuinely saved us today. Thank you Marcus.\nAgent: So glad we got there in time. Good luck with the presentation!"
+}
