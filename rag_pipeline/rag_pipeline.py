@@ -1,5 +1,3 @@
-# rag_pipeline/rag_pipeline.py
-
 import sys
 from pathlib import Path
 

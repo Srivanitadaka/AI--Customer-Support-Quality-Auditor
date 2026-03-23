@@ -1,26 +1,3 @@
-# vector_db/milvus_store.py
-"""
-Milvus Vector Store
-─────────────────────────────────────────────
-Enterprise-grade vector database.
-Handles millions of vectors at scale.
-
-Windows Note:
-  milvus-lite does not support Windows.
-  This file uses a pure Python mock with identical API.
-  On Linux/Mac deployment, swap get_client() to use
-  real MilvusClient pointing to a Milvus server.
-
-Two collections:
-  scored_calls   ← past scored call results
-  knowledge_base ← KB policy rules
-
-Usage:
-  python vector_db/milvus_store.py --build
-  python vector_db/milvus_store.py --stats
-  python vector_db/milvus_store.py --search "agent refused escalation"
-"""
-
 import os
 import sys
 import json

@@ -1,14 +1,3 @@
-# streamlit_app.py
-"""
-CallAudit Pro — Supervisor Dashboard
-─────────────────────────────────────────────
-Streamlit dashboard for supervisors/managers.
-Shows team performance, trends, violations, leaderboard.
-
-Run:
-  streamlit run streamlit_app.py
-"""
-
 import json
 import pandas as pd
 import streamlit as st

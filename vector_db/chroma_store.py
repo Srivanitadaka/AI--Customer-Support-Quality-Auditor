@@ -1,20 +1,3 @@
-# vector_db/chroma_store.py
-"""
-ChromaDB Vector Store
-─────────────────────────────────────────────
-Local persistent vector database.
-Upgrade from FAISS — survives restarts, no rebuild needed.
-
-Two collections:
-  scored_calls  ← past scored call results
-  knowledge_base ← KB policy rules
-
-Usage:
-  python vector_db/chroma_store.py --build
-  python vector_db/chroma_store.py --stats
-  python vector_db/chroma_store.py --search "agent refused escalation"
-"""
-
 import os
 import sys
 import json

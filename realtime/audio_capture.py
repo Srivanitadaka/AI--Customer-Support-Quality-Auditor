@@ -1,17 +1,3 @@
-# realtime/audio_capture.py
-"""
-Audio Capture Module
-─────────────────────────────────────────────
-Captures microphone audio in real-time chunks.
-Sends each chunk to callback for transcription.
-
-Usage:
-  from realtime.audio_capture import AudioCapture
-  capture = AudioCapture(on_chunk_callback=my_function)
-  capture.start()
-  capture.stop()
-"""
-
 import threading
 import wave
 import tempfile

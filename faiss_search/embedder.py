@@ -1,5 +1,3 @@
-# faiss_search/embedder.py
-
 from sentence_transformers import SentenceTransformer
 
 MODEL_NAME = "BAAI/bge-small-en-v1.5"

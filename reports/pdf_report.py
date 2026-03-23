@@ -1,14 +1,3 @@
-# reports/pdf_report.py
-"""
-PDF Report Generator
-─────────────────────────────────────────────
-Generates a professional PDF report for any scored call.
-
-Usage:
-  from reports.pdf_report import generate_pdf
-  pdf_bytes = generate_pdf(scored_result, filename="call_01.mp3")
-"""
-
 import io
 from datetime import datetime
 from pathlib import Path

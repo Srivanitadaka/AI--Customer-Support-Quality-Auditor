@@ -1,18 +1,3 @@
-# realtime/live_monitor.py
-"""
-Live Call Monitor
-─────────────────────────────────────────────
-Orchestrates real-time call monitoring.
-Coordinates audio capture, transcription,
-RAG scoring, and compliance alerts.
-
-Usage:
-  from realtime.live_monitor import LiveMonitor
-  monitor = LiveMonitor(socketio=socketio)
-  monitor.start()
-  monitor.stop()
-"""
-
 import sys
 import threading
 import time

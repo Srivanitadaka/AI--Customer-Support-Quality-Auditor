@@ -1,17 +1,3 @@
-# realtime/alert_engine.py
-"""
-Compliance Alert Engine
-─────────────────────────────────────────────
-Detects violations in scored results and sends:
-  - In-app alerts via Flask-SocketIO
-  - Email alerts via Gmail SMTP
-
-Add to config/.env:
-  ALERT_EMAIL_FROM=your_gmail@gmail.com
-  ALERT_EMAIL_PASSWORD=your_app_password
-  ALERT_EMAIL_TO=supervisor@gmail.com
-"""
-
 import os
 import sys
 import smtplib

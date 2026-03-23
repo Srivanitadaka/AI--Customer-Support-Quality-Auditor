@@ -1,22 +1,3 @@
-"""
-generate_dataset.py
-────────────────────────────────────────────────────────
-Generates:
-  10 call logs   -> real audio files -> sample_data/audio/
-                    named: call_01.mp3, call_02.wav, etc.
-                    Deepgram transcribes these
-
-  10 chat transcripts -> plain .txt -> sample_data/chats/
-                         named: chat_01.txt, chat_02.txt, etc.
-                         chat_processor reads these directly
-
-Grade spread across 10 calls: A,A,B,B,C,C,D,D,F,F
-Grade spread across 10 chats: A,A,B,B,C,C,D,D,F,F
-
-Run:
-    python generate_dataset.py
-"""
-
 import time
 import subprocess
 from pathlib import Path

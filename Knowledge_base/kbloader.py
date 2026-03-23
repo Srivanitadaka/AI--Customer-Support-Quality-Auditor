@@ -1,16 +1,3 @@
-# knowledge_base/kb_loader.py
-"""
-Knowledge Base Loader
-─────────────────────────────────────────────
-14 entries across 3 categories:
-  - Policy Rules     (7) — compliance violations
-  - Quality Rubrics  (3) — scoring instructions
-  - Best Practices   (4) — agent guidance
-
-Run directly to generate kb_store.json:
-  python knowledge_base/kb_loader.py
-"""
-
 import json
 from pathlib import Path
 

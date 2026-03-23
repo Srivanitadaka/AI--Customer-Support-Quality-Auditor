@@ -1,13 +1,3 @@
-"""
-cleanup_results.py
-──────────────────────────────────────────
-Deletes all scored JSON files from analysis_results/
-so your dashboard starts fresh and clean.
-
-Run from project root:
-    python cleanup_results.py
-"""
-
 from pathlib import Path
 
 BASE        = Path(__file__).resolve().parent

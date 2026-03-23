@@ -1,4 +1,3 @@
-# test_search.py
 from faiss_search.faiss_store import search
 
 query   = "agent was rude and refused to escalate the complaint"

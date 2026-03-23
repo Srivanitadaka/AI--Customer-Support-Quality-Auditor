@@ -1,14 +1,3 @@
-# reports/excel_report.py
-"""
-Excel Report Generator
-─────────────────────────────────────────────
-Exports all scored calls to a formatted Excel file.
-
-Usage:
-  from reports.excel_report import generate_excel
-  excel_bytes = generate_excel(results_dir)
-"""
-
 import io
 import json
 from pathlib import Path

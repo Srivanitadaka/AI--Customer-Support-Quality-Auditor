@@ -1,11 +1,3 @@
-# realtime/alert_engine.py
-"""
-Compliance Alert Engine.
-Detects violations and sends:
-  - In-app alerts (returned in API response)
-  - Email alerts via Gmail SMTP
-"""
-
 import os
 import sys
 import smtplib

@@ -1,20 +1,3 @@
-# vector_db/pinecone_store.py
-"""
-Pinecone Vector Store
-─────────────────────────────────────────────
-Cloud vector database. Survives deployment.
-Use this when deploying to cloud (Render, Railway).
-
-Two namespaces:
-  scored_calls   ← past scored call results
-  knowledge_base ← KB policy rules
-
-Usage:
-  python vector_db/pinecone_store.py --build
-  python vector_db/pinecone_store.py --stats
-  python vector_db/pinecone_store.py --search "agent refused escalation"
-"""
-
 import os
 import sys
 import json

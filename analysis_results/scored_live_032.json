@@ -70,6 +70,5 @@
     "The customer was very satisfied with the service"
   ],
   "compliance_alerts": [],
-  "_source": "call_01.mp3",
-  "_type": "live_upload"
+  "transcript_snippet": "Agent: Agent says, thank you for calling First National Bank.\nAgent: This is Priya.\nAgent: How can I help you today?\nAgent: Customer says, hi, Priya.\nAgent: I am really worried.\nAgent: I just noticed a charge of three hundred and forty dollars on my account that I did not make.\nAgent: Agent says, I completely\nAgent: understand how alarming that feels, and I am really glad you called right away.\nAgent: Let me pull up your account immediately.\nAgent: Customer says, please hurry. I am scared I am g"
 }

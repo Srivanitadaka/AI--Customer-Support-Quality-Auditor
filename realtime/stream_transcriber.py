@@ -1,17 +1,3 @@
-# realtime/stream_transcriber.py
-"""
-Stream Transcriber Module
-─────────────────────────────────────────────
-Transcribes audio chunks using Deepgram REST API.
-Accumulates full transcript as call progresses.
-
-Usage:
-  from realtime.stream_transcriber import StreamTranscriber
-  t = StreamTranscriber(on_transcript_callback=my_function)
-  t.transcribe_chunk("path/to/chunk.wav")
-  print(t.get_transcript())
-"""
-
 import os
 import sys
 from pathlib import Path

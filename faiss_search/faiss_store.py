@@ -1,5 +1,3 @@
-# faiss_search/faiss_store.py
-
 import json
 import faiss
 import numpy as np
