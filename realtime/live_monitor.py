@@ -11,7 +11,7 @@ from realtime.audio_capture      import AudioCapture
 from realtime.stream_transcriber  import StreamTranscriber
 from realtime.alert_engine        import AlertEngine
 
-SCORE_INTERVAL_SECS = 30   # score every 30 seconds
+SCORE_INTERVAL_SECS = 15   # score every 30 seconds
 
 
 class LiveMonitor:

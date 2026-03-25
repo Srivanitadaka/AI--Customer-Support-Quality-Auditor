@@ -148,6 +148,7 @@ with st.sidebar:
 
         if audio_file and st.button("🔍 Analyze Call"):
             with st.spinner("Transcribing audio..."):
+                # Save to temp file
                 suffix = Path(audio_file.name).suffix
                 tmp    = tempfile.NamedTemporaryFile(
                     suffix=suffix, delete=False
@@ -213,6 +214,7 @@ with st.sidebar:
 
     st.divider()
 
+    # Clear button
     if st.button("🗑 Clear Results"):
         st.session_state.transcript    = ""
         st.session_state.result        = None
@@ -235,6 +237,7 @@ st.markdown(
     unsafe_allow_html=True
 )
 
+# ── No result yet ──────────────────────────────────────
 if not st.session_state.result and not st.session_state.transcript:
     st.markdown("""
     <div style='background:#0d1320;border:1px solid #1e293b;
@@ -254,6 +257,7 @@ if not st.session_state.result and not st.session_state.transcript:
     </div>
     """, unsafe_allow_html=True)
 
+# ── Show transcript while monitoring ──────────────────
 if st.session_state.is_monitoring:
     st.markdown("### 🔴 Live Transcript")
     transcript_placeholder = st.empty()
@@ -277,21 +281,37 @@ if st.session_state.result:
     dims  = r.get("dimension_scores", r.get("scores", {}))
     aq    = r.get("agent_quality", {})
 
+    # ── Overview KPIs ──────────────────────────────────
     st.markdown("### 📊 Overall Performance")
     c1, c2, c3, c4 = st.columns(4)
-    c1.metric("Overall Score", f"{score}/100", delta=f"Grade {grade}")
-    c2.metric("Satisfaction",  f"{sat.get('rating', 0):.1f}/5")
-    c3.metric("Call Outcome",  r.get("call_outcome", "Unknown"))
-    c4.metric("Violations",    len(r.get("violations", [])))
+
+    c1.metric(
+        "Overall Score",
+        f"{score}/100",
+        delta = f"Grade {grade}"
+    )
+    c2.metric(
+        "Satisfaction",
+        f"{sat.get('rating', 0):.1f}/5"
+    )
+    c3.metric(
+        "Call Outcome",
+        r.get("call_outcome", "Unknown")
+    )
+    c4.metric(
+        "Violations",
+        len(r.get("violations", []))
+    )
 
     st.divider()
 
+    # ── Compliance Alerts ──────────────────────────────
     alerts = st.session_state.alerts
     if alerts:
         st.markdown(f"### 🚨 Compliance Alerts ({len(alerts)})")
         for a in alerts:
             lvl = (a.get("level") or "warning").lower()
-            cls = "critical" if lvl == "critical" else "high" if lvl == "high" else "medium"
+            cls = "critical" if lvl=="critical" else "high" if lvl=="high" else "medium"
             st.markdown(
                 f"<div class='viol-card {cls}'>"
                 f"<strong>[{a.get('level','')}]</strong> "
@@ -301,9 +321,11 @@ if st.session_state.result:
             )
         st.divider()
 
+    # ── Two columns ────────────────────────────────────
     col_left, col_right = st.columns(2)
 
     with col_left:
+        # Dimension scores radar chart
         st.markdown("### 🎯 Dimension Scores")
         DIM_LABELS = {
             "empathy":                  "Empathy",
@@ -317,11 +339,11 @@ if st.session_state.result:
 
         fig = go.Figure()
         fig.add_trace(go.Bar(
-            x            = dim_names,
-            y            = dim_vals,
-            marker_color = [score_color(v, 10) for v in dim_vals],
-            text         = [f"{v}/10" for v in dim_vals],
-            textposition = "outside",
+            x           = dim_names,
+            y           = dim_vals,
+            marker_color= [score_color(v,10) for v in dim_vals],
+            text        = [f"{v}/10" for v in dim_vals],
+            textposition= "outside",
         ))
         fig.update_layout(
             plot_bgcolor  = "#0d1320",
@@ -329,7 +351,7 @@ if st.session_state.result:
             font_color    = "#e2e8f0",
             yaxis_range   = [0, 10],
             height        = 280,
-            margin        = dict(l=0, r=0, t=20, b=0),
+            margin        = dict(l=0,r=0,t=20,b=0),
             showlegend    = False,
         )
         fig.update_xaxes(gridcolor="#1e293b")
@@ -337,30 +359,32 @@ if st.session_state.result:
         st.plotly_chart(fig, use_container_width=True)
 
     with col_right:
+        # Agent quality bars
         st.markdown("### 👔 Agent Quality")
         metrics = [
-            ("Language Clarity",    aq.get("language_clarity",    0), 20),
-            ("Professionalism",     aq.get("professionalism",      0), 20),
-            ("Time Efficiency",     aq.get("time_efficiency",      0), 20),
-            ("Response Efficiency", aq.get("response_efficiency",  0), 20),
-            ("Empathy Score",       aq.get("empathy_score",        0), 10),
+            ("Language Clarity",    aq.get("language_clarity",   0), 20),
+            ("Professionalism",     aq.get("professionalism",    0), 20),
+            ("Time Efficiency",     aq.get("time_efficiency",    0), 20),
+            ("Response Efficiency", aq.get("response_efficiency",0), 20),
+            ("Empathy Score",       aq.get("empathy_score",      0), 10),
         ]
         for label, val, mx in metrics:
-            col_a, col_b = st.columns([3, 1])
+            col_a, col_b = st.columns([3,1])
             col_a.markdown(
                 f"<div style='font-size:12px;color:#94a3b8;"
                 f"margin-bottom:4px'>{label}</div>",
                 unsafe_allow_html=True
             )
             col_b.markdown(
-                f"<div style='font-size:12px;color:{score_color(val, mx)};"
+                f"<div style='font-size:12px;color:{score_color(val,mx)};"
                 f"text-align:right'>{val}/{mx}</div>",
                 unsafe_allow_html=True
             )
-            st.progress(int(val / mx * 100))
+            st.progress(int(val/mx*100))
 
     st.divider()
 
+    # ── Violations + Improvements ──────────────────────
     col_v, col_i = st.columns(2)
 
     with col_v:
@@ -368,29 +392,16 @@ if st.session_state.result:
         st.markdown(f"### ⚠ Violations ({len(viols)})")
         if viols:
             for v in viols:
-                sev   = (v.get("severity") or "medium").lower()
-                cls   = "critical" if sev == "critical" else "high" if sev == "high" else "medium"
-                vtype = (v.get("type") or "").replace("_", " ").title()
-                expl  = v.get("explanation", "")[:120]
-                quote = v.get("quote", "")[:80]
-
-                # ✅ FIXED: build quote HTML cleanly — no chr() tricks
-                if quote:
-                    quote_html = (
-                        '<br><em style="color:#f87171;font-size:11px">'
-                        + quote
-                        + '</em>'
-                    )
-                else:
-                    quote_html = ""
-
+                sev = (v.get("severity") or "medium").lower()
+                cls = "critical" if sev=="critical" else "high" if sev=="high" else "medium"
                 st.markdown(
                     f"<div class='viol-card {cls}'>"
-                    f"<strong>{vtype}</strong>"
+                    f"<strong>{(v.get('type') or '').replace('_',' ').title()}</strong>"
                     f"<span style='font-size:10px;margin-left:8px;"
                     f"color:#94a3b8'>[{sev.upper()}]</span><br>"
-                    f"<span style='font-size:12px;color:#94a3b8'>{expl}</span>"
-                    f"{quote_html}"
+                    f"<span style='font-size:12px;color:#94a3b8'>"
+                    f"{v.get('explanation','')[:120]}</span>"
+                    f"{f'<br><em style=chr(34)color:#f87171;font-size:11px{chr(34)}>{v.get(chr(39)quote{chr(39)},chr(34){chr(34)})[:80]}</em>' if v.get('quote') else ''}"
                     f"</div>",
                     unsafe_allow_html=True
                 )
@@ -402,25 +413,12 @@ if st.session_state.result:
         st.markdown(f"### 💡 Improvements ({len(imps)})")
         if imps:
             for i in imps:
-                area    = (i.get("area") or "").replace("_", " ").upper()
-                sug     = i.get("suggestion", "")[:150]
-                example = i.get("example", "")[:100]
-
-                # ✅ FIXED: build example HTML cleanly — no chr() tricks
-                if example:
-                    ex_html = (
-                        '<br><em style="color:#64748b;font-size:11px">💬 '
-                        + example
-                        + '</em>'
-                    )
-                else:
-                    ex_html = ""
-
                 st.markdown(
                     f"<div class='imp-card'>"
-                    f"<strong style='color:#38bdf8;font-size:11px'>{area}</strong><br>"
-                    f"<span style='font-size:13px'>{sug}</span>"
-                    f"{ex_html}"
+                    f"<strong style='color:#38bdf8;font-size:11px'>"
+                    f"{(i.get('area') or '').replace('_',' ').upper()}</strong><br>"
+                    f"<span style='font-size:13px'>{i.get('suggestion','')[:150]}</span>"
+                    f"{'<br><em style=chr(34)color:#64748b;font-size:11px{chr(34)}>💬 ' + i.get('example','')[:100] + '</em>' if i.get('example') else ''}"
                     f"</div>",
                     unsafe_allow_html=True
                 )
@@ -429,9 +427,11 @@ if st.session_state.result:
 
     st.divider()
 
+    # ── Summary ────────────────────────────────────────
     st.markdown("### 📝 AI Summary")
     st.info(r.get("summary", "No summary available"))
 
+    # ── Transcript viewer ──────────────────────────────
     if st.session_state.transcript:
         with st.expander("📄 View Transcript"):
             lines = st.session_state.transcript.split("\n")
@@ -464,6 +464,7 @@ if st.session_state.result:
                             unsafe_allow_html=True
                         )
 
+    # ── Download buttons ───────────────────────────────
     st.divider()
     st.markdown("### ⬇ Download Reports")
     dl1, dl2 = st.columns(2)
@@ -471,7 +472,9 @@ if st.session_state.result:
     with dl1:
         try:
             from reports.pdf_report import generate_pdf
-            pdf_bytes = generate_pdf(r, filename="live_analysis.json")
+            pdf_bytes = generate_pdf(
+                r, filename="live_analysis.json"
+            )
             st.download_button(
                 label     = "⬇ Download PDF Report",
                 data      = pdf_bytes,

@@ -86,17 +86,16 @@
     },
     {
       "level": "CRITICAL",
-      "message": "[CRITICAL] Emergency Claims \u2014 The agent did not treat the customer's emergency claim as highest priority and did not follow emerge",
+      "message": "[CRITICAL] Emergency Claims — The agent did not treat the customer's emergency claim as highest priority and did not follow emerge",
       "quote": "I need to file a new claim. My roof was torn off in last night's storm, and rain is getting into my house right now.",
       "time": "10:55:47"
     },
     {
       "level": "HIGH",
-      "message": "[HIGH] Rude Language \u2014 The agent's response came across as dismissive and unhelpful.",
+      "message": "[HIGH] Rude Language — The agent's response came across as dismissive and unhelpful.",
       "quote": "Call back tomorrow to check on coverage.",
       "time": "10:55:47"
     }
   ],
-  "_source": "call_07.mp3",
-  "_type": "live_upload"
+  "transcript_snippet": "Agent: Agent says,\nAgent: Shield Insurance.\nAgent: Claim number? Customer says,\nAgent: I do not have one.\nAgent: I need to file a new claim.\nAgent: My roof was torn off in last night's storm, and rain is getting into my house right now.\nAgent: Agent says, use the app for new claims. Customer says,\nAgent: I do not have the app. I am calling because my house is actively being damaged.\nAgent: Agent says,\nAgent: fine.\nAgent: Policy number.\nAgent: Customer\nAgent: says, p l dash nine nine two eight fo"
 }

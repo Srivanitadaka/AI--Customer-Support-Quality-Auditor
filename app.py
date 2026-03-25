@@ -4,6 +4,15 @@ from pathlib import Path
 from datetime import datetime
 from analyzer import analyze_text
 
+# ── Initialize LiveMonitor once at startup ─────────
+try:
+    from realtime.live_monitor import LiveMonitor
+    _live_monitor = LiveMonitor(socketio=None)
+    print("  ✅ LiveMonitor ready")
+except Exception as e:
+    _live_monitor = None
+    print(f"  ⚠️  LiveMonitor not available: {e}")
+
 app = Flask(__name__, static_folder="static", template_folder="templates")
 UPLOAD_FOLDER  = "uploads"
 RESULTS_FOLDER = Path(__file__).resolve().parent / "analysis_results"
@@ -200,16 +209,35 @@ def download_excel():
         return jsonify({"error": str(e)}), 500
 
 
-# ══════════════════════════════════════════════════════
-# LIVE MONITOR PAGE (if realtime module exists)
-# ══════════════════════════════════════════════════════
+# ── Live Monitor ───────────────────────────────────
 @app.route("/live")
 def live_monitor_page():
-    try:
-        return render_template("live_monitor.html")
-    except Exception:
-        return "<h2>Live monitor template not found</h2>", 404
+    return render_template("live_monitor.html")
 
+@app.route("/live/start", methods=["POST"])
+def live_start():
+    if _live_monitor:
+        result = _live_monitor.start()
+        return jsonify(result)
+    return jsonify({"status": "error", "error": "Monitor not available"})
+
+@app.route("/live/stop", methods=["POST"])
+def live_stop():
+    if _live_monitor:
+        result = _live_monitor.stop()
+        return jsonify(result)
+    return jsonify({"status": "stopped", "final_score": None, "alerts": [], "transcript": ""})
+
+@app.route("/live/status")
+def live_status():
+    if _live_monitor:
+        return jsonify(_live_monitor.get_status())
+    return jsonify({
+        "is_running":    False,
+        "transcript":    "",
+        "current_score": None,
+        "alerts":        []
+    })
 
 # ══════════════════════════════════════════════════════
 # RUN
